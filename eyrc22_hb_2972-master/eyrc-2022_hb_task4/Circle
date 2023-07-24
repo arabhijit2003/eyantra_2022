@@ -1,0 +1,73 @@
+const int dirPin1 = 6;
+const int stepPin1 = 8;
+const int stepsPerRevolution = 200;
+const int dirPin2 = 7;
+const int stepPin2 = 9;
+//const int stepsPerRevolution = 200;
+const int dirPin3 = 4;
+const int stepPin3 = 46;
+//const int stepsPerRevolution = 200;
+
+int maxSpeed=100;
+int distance=20;
+int speed1, speed2, speed3;
+int v_x,v_y,w;
+int d=1;
+int x=0;
+
+void setup()
+{
+  pinMode(dirPin1, OUTPUT);
+  pinMode(dirPin2, OUTPUT);
+  pinMode(dirPin3, OUTPUT);
+  pinMode(stepPin1, OUTPUT);
+  pinMode(stepPin2, OUTPUT);
+  pinMode(stepPin3, OUTPUT);
+  
+  delay(5000);
+  for (int i=0; i<stepsPerRevolution*distance; i++){
+    speed1=maxSpeed*cos(2*PI*i/(stepsPerRevolution*distance));
+    speed2=-maxSpeed*cos(PI/3+2*PI*i/(stepsPerRevolution*distance));
+    speed3=-maxSpeed*cos(-PI/3+2*PI*i/(stepsPerRevolution*distance));
+
+    if (speed1>=0){
+      digitalWrite(dirPin1, HIGH);
+    }
+    else{
+      digitalWrite(dirPin1, LOW);
+    }
+    if (speed2>=0){
+      digitalWrite(dirPin2, HIGH);
+    }
+    else{
+      digitalWrite(dirPin2, LOW);
+    }
+    if (speed3>=0){
+      digitalWrite(dirPin3, HIGH);
+    }
+    else{
+      digitalWrite(dirPin3, LOW);
+    }
+
+    if (speed1!=0 && i%(maxSpeed/abs(speed1))==0){
+      digitalWrite(stepPin1, HIGH);
+    }
+    if (speed2!=0 && i%(maxSpeed/abs(speed2))==0){
+      digitalWrite(stepPin2, HIGH);
+    }
+    if (speed3!=0 && i%(maxSpeed/abs(speed3))==0){
+      digitalWrite(stepPin3, HIGH);
+    }
+    delayMicroseconds(1000);
+    digitalWrite(stepPin1, LOW);
+    digitalWrite(stepPin2, LOW);
+    digitalWrite(stepPin3, LOW);
+    delayMicroseconds(1000);
+  }
+
+}
+void loop()
+{  
+  
+
+}
